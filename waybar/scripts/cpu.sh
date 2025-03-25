@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 while :; do
 	# Get the first line with aggregate of all CPUs
-	cpu_now=($(head -n1 /proc/stat))
+	read -r -a cpu_now < /proc/stat
+	#cpu_now=($(head -n1 /proc/stat))
 	# Get all columns but skip the first (which is the "cpu" string)
-	cpu_sum="${cpu_now[@]:1}"
+	cpu_sum="${cpu_now[*]:1}"
 	# Replace the column seperator (space) with +
 	cpu_sum=$((${cpu_sum// /+}))
 	# Get the delta between two reads
@@ -19,12 +20,12 @@ while :; do
 	cpu_last=("${cpu_now[@]}")
 	cpu_last_sum=$cpu_sum
 
-	if (( $cpu_usage > 80 )); then
+	if (( cpu_usage > 80 )); then
     		echo '{"text": "'"$cpu_usage"'", "class": "critical"}'
-	elif (( $cpu_usage > 60 )); then
+	elif (( cpu_usage > 60 )); then
     		echo '{"text": "'"$cpu_usage"'", "class": "warning"}'
 	else
-		if [[ ${#cpu_usage} < 2 ]]; then
+		if [[ ${#cpu_usage} -lt 2 ]]; then
     			echo '{"text": "'"0$cpu_usage"'"}'
 		else
     			echo '{"text": "'"$cpu_usage"'"}'

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-continue=1
-
 FILE="$HOME/.config/waybar/scripts/wireguard_monitoring"
 GATEWAY="192.168.1.254"
 ## Select the interface to monitor
@@ -17,8 +15,7 @@ select_interface() {
 		fi
 		((count++))
 	done <<< "$ifnames"
-	echo "$value"
-	if [ ! -z "$ifnames" ]; then
+	if [ -n "$ifnames" ]; then
 		# Display the rofi menu with all the sinks available
 		chosen_interface="$(echo -e "$ifnames" | rofi -dmenu -p "[Network] Select the interface to monitor" -lines $count -a $current_selected_interface )"
 		# If cancel (escape key) nothing to do

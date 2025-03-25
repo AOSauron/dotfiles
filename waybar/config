@@ -6,7 +6,7 @@
     "margin-right": 10,
     "modules-left": ["sway/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/pipewire", "custom/separator", "sway/language", "custom/separator", "custom/power"],
+    "modules-right": ["custom/battery", "custom/separator", "custom/pipewire", "custom/separator", "sway/language", "custom/separator", "custom/power"],
     //Modules configuration
     "sway/workspaces": {
         "disable-scroll": true,
@@ -60,7 +60,7 @@
     	"return-type": "json",
 	"interval": 2,
 	"tooltip": false,
-	"format": "{icon} {}",
+	"format": "{icon} {text}",
 	"format-icons": ["", "墳", "墳 ", "墳 ", "", " ", " ", "墳 ", "墳  ", "墳  "],
         "exec": "~/.config/waybar/scripts/pipewire.sh -q | jq --unbuffered --compact-output"
     },
@@ -68,8 +68,8 @@
     	"return-type": "json",
 	"interval": 10,
 	"tooltip": false,
-	"format": "{icon} {}%",
-	"format-icons": ["", "", "", "", "", "", "", "", "", ""],
+	"format": "{icon} {text}%",
+	"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "exec": "~/.config/waybar/scripts/battery.sh | jq --unbuffered --compact-output"
     },
 }, {
@@ -78,7 +78,7 @@
     "margin-left": 10,
     "margin-right": 10,
     "height": 28,
-    "modules-right": ["custom/ethernet", "custom/separator", "custom/memory", "custom/separator", "custom/cpu", "custom/separator", "custom/filesystem"],
+    "modules-right": ["custom/wifi", "custom/separator", "custom/memory", "custom/separator", "custom/cpu", "custom/separator", "custom/filesystem"],
     "modules-left": ["custom/wireguard"],
 
     "custom/separator": {
@@ -90,43 +90,43 @@
     	"return-type": "json",
 	"interval": 2,
 	"tooltip": false,
-	"format": " {}",
+	"format": " {}",
         "exec": "~/.config/waybar/scripts/memory.sh | jq --unbuffered --compact-output"
     },
     "custom/cpu": {
     	"return-type": "json",
 	"tooltip": false,
-	"format": "﬙ {}%",
+	"format": " {}%",
         "exec": "~/.config/waybar/scripts/cpu.sh | jq --unbuffered --compact-output"
     },
     "custom/filesystem": {
     	"return-type": "json",
 	"interval": 10,
 	"tooltip": false,
-	"format": " {}",
-        "exec": "~/.config/waybar/scripts/filesystem.sh /home | jq --unbuffered --compact-output"
+	"format": " {}",
+        "exec": "~/.config/waybar/scripts/filesystem.sh /home /var/log | jq --unbuffered --compact-output"
     },
     "custom/ethernet": {
     	"return-type": "json",
 	"interval": 5,
 	"tooltip": false,
-	"format": "{icon} {}",
-	"format-icons": ["", "", ""],
+	"format": "{icon} {text}",
+	"format-icons": ["󰲜", "󰈂", "󰈁"],
         "exec": "~/.config/waybar/scripts/ethernet.sh -m | jq --unbuffered --compact-output"
     },
     "custom/wifi": {
     	"return-type": "json",
 	"interval": 5,
 	"tooltip": false,
-	"format": "{icon} {}",
-	"format-icons": ["睊", "直"],
+	"format": "{icon} {text}",
+	"format-icons": ["󰖪 ", " "],
         "exec": "~/.config/waybar/scripts/wifi.sh -m | jq --unbuffered --compact-output"
     },
     "custom/wireguard": {
     	"return-type": "json",
 	"interval": 5,
 	"tooltip": false,
-	"format": " {}",
+	"format": "󰖂 {}",
         "exec": "~/.config/waybar/scripts/wireguard.sh -m | jq --unbuffered --compact-output"
     },
 }]

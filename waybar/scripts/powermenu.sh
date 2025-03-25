@@ -8,9 +8,9 @@ rofi_command="rofi -theme $dir/$theme"
 # Options
 shutdown="⏻"
 reboot=""
-lock=""
-suspend="⏾"
-logout=""
+lock="󰌾"
+suspend="󰤄"
+logout="󰍃"
 
 # Confirmation
 confirm_exit() {
@@ -18,36 +18,36 @@ confirm_exit() {
 		-i\
 		-no-fixed-num-lines\
 		-p "Are You Sure? [y/n] "\
-		-theme $dir/confirm.rasi
+		-theme "$dir"/confirm.rasi
 }
 
 # Variable passed to rofi
 options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
 
 chosen="$(echo -e "$options" | $rofi_command -p "" -dmenu -selected-row 0)"
-case $chosen in
-	$shutdown)
+case "$chosen" in
+	"$shutdown")
 		ans=$(confirm_exit &)
 		if [ "$ans" == "y" ]; then
-			echo "unplug" > $HOME/.config/waybar/scripts/jack_monitoring
+			echo "unplug" > "$HOME"/.config/waybar/scripts/jack_monitoring
 			systemctl poweroff
 		else
 			exit 0
 		fi
 		;;
-	$reboot)
+	"$reboot")
 		ans=$(confirm_exit &)
 		if [ "$ans" == "y" ]; then
-			echo "unplug" > $HOME/.config/waybar/scripts/jack_monitoring
+			echo "unplug" > "$HOME"/.config/waybar/scripts/jack_monitoring
 			systemctl reboot
 		else
 			exit 0
 		fi
 		;;
-	$lock)
-		swaylock -t -i $HOME/.config/wallpapers/star_wars.png
+	"$lock")
+		swaylock -t -i "$HOME"/.config/wallpapers/star_wars.png
 		;;
-	$suspend)
+	"$suspend")
 		ans=$(confirm_exit &)
 		if [ "$ans" == "y" ]; then
 			systemctl suspend
@@ -55,7 +55,7 @@ case $chosen in
 			exit 0
 		fi
 		;;
-	$logout)
+	"$logout")
 		ans=$(confirm_exit &)
 		if [ "$ans" == "y" ]; then
 			swaymsg exit
